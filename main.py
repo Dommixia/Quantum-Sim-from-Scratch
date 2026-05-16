@@ -1,4 +1,5 @@
 import numpy as np
+
 # Qubits
 zero = np.array([1,0], dtype = complex)
 one = np.array([0,1], dtype = complex)
@@ -49,7 +50,6 @@ def applyGateToQubit(gate, qubit_index, n_qubits, state):
     return newState
 def applyCNOT(state):
     return normalize(CNOT @ state)
-hq0 = np.kron(H_gate, I)
 state = applyGateToQubit(H_gate, 0, 2, q00)
 bell_state = applyCNOT(state)
 bit, collapsed_state = measure(bell_state, 0, 2 )

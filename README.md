@@ -29,6 +29,17 @@ Entanglement is created by applying CNOT to a superposition state:
 H on q0 → 1/√2(|00⟩ + |10⟩)
 CNOT    → 1/√2(|00⟩ + |11⟩)
 
+Normalization is enforced after every operation:
+norm = √(Σ|αᵢ|²)    state = state / norm
+
+General gate application to qubit q in an n-qubit system:
+full_gate = I ⊗ ... ⊗ gate ⊗ ... ⊗ I  (gate at position q)
+
+Measurement collapses state to subspace consistent with outcome:
+1. Sample outcome using Born rule probabilities |αᵢ|²
+2. Zero all amplitudes where qubit q ≠ measured bit
+3. Renormalize collapsed state
+
 ## Key Features
 
 - Pure NumPy — no quantum computing frameworks
@@ -37,6 +48,9 @@ CNOT    → 1/√2(|00⟩ + |11⟩)
 - CNOT for entanglement
 - Probabilistic measurement
 - Bell state creation and verification
+- Normalization enforced after every gate operation
+- General n-qubit gate application via tensor product expansion
+- State collapse after measurement with post-measurement state returned
 
 ## Tech Stack
 
@@ -46,7 +60,7 @@ CNOT    → 1/√2(|00⟩ + |11⟩)
 ## Setup
 
 ```bash
-pip install numpy
+pip -r requirements.txt
 python main.py
 ```
 
@@ -64,3 +78,4 @@ Bell state measurement across 100 trials shows entanglement:
 - Matrix multiplication applies quantum operations
 - Entanglement emerges from CNOT + superposition
 - Measurement collapses superposition probabilistically
+- Measurement extracts one qubit's value via bit manipulation on outcome index

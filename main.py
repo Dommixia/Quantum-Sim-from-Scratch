@@ -19,7 +19,6 @@ CNOT = np.array([[1, 0, 0, 0],
                   [0, 1, 0, 0],
                   [0, 0, 0, 1],
                   [0, 0, 1, 0]], dtype=complex)
-
 def normalize(state):
     norm = np.linalg.norm(state)
     return state / norm

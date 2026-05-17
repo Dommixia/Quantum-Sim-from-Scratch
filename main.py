@@ -22,12 +22,15 @@ CNOT = np.array([[1, 0, 0, 0],
 def normalize(state):
     norm = np.linalg.norm(state)
     return state / norm
-def isNormalized(state):
+def isnormalized(state):
     return np.isclose(np.sum(np.abs(state) ** 2), 1.0)
 
 class Quantum(object):
-    def applyGate(gate, state):
+    @staticmethod
+    def applygate(gate, state):
         return normalize(gate @ state)
+
+    @staticmethod
     def measure(state, qubit_index, n_qubits):
         prob = np.abs(state) ** 2
         outcome = np.random.choice(len(state), p=prob)
@@ -38,6 +41,8 @@ class Quantum(object):
                 new_state[i] = state[i]
         new_state = normalize(new_state)
         return bit, new_state
+
+    @staticmethod
     def applyGateToQubit(gate, qubit_index, n_qubits, state):
         full_gate = np.array([[1]], dtype=complex)
         for i in range(n_qubits):
@@ -46,9 +51,10 @@ class Quantum(object):
             else:
                 full_gate = np.kron(full_gate, I)
         newState = normalize(full_gate @ state)
-        assert isNormalized(newState), "State not normalized"
+        assert isnormalized(newState), "State not normalized"
         return newState
 
+    @staticmethod
     def applyCNOT(state):
         return normalize(CNOT @ state)
 
@@ -59,4 +65,4 @@ print(bell_state)
 print(np.sum(np.abs(bell_state)**2))
 print(f"Measured qubit 0: {bit}")
 print(f"Collapsed state: {collapsed_state}")
-print(f"Normalized: {isNormalized(collapsed_state)}")
+print(f"Normalized: {isnormalized(collapsed_state)}")

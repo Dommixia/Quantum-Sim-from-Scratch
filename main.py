@@ -28,7 +28,6 @@ def isNormalized(state):
 class Quantum(object):
     def applyGate(gate, state):
         return normalize(gate @ state)
-
     def measure(state, qubit_index, n_qubits):
         prob = np.abs(state) ** 2
         outcome = np.random.choice(len(state), p=prob)
@@ -39,7 +38,6 @@ class Quantum(object):
                 new_state[i] = state[i]
         new_state = normalize(new_state)
         return bit, new_state
-    # Multi Qubit Gates via Tensor Products
     def applyGateToQubit(gate, qubit_index, n_qubits, state):
         full_gate = np.array([[1]], dtype=complex)
         for i in range(n_qubits):
